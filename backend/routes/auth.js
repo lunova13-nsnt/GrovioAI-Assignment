@@ -1,8 +1,8 @@
-const express  = require('express');
-const router   = express.Router();
-const bcrypt   = require('bcryptjs');
-const jwt      = require('jsonwebtoken');
-const db       = require('../db');
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const db = require('../db');
 
 const SECRET = process.env.JWT_SECRET || 'your_secret_key_change_this';
 
@@ -46,7 +46,7 @@ router.post('/login', (req, res) => {
   }
 
   db.get('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
-    if (err)   return res.status(500).json({ error: err.message });
+    if (err) return res.status(500).json({ error: err.message });
     if (!user) return res.status(404).json({ error: 'User not found.' });
 
     const valid = await bcrypt.compare(password, user.password);
